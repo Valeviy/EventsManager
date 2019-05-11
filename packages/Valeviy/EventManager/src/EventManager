@@ -1,0 +1,36 @@
+<?php
+namespace Valeviy\EventManager;
+
+class EventManager{
+
+//    public function routes(){
+//        $attributes = [
+//            'prefix'     => config('eventmanager.route.prefix'),
+//            'middleware' => config('eventmanager.route.middleware'),
+//        ];
+//
+//        app('router')->group($attributes, function ($router) {
+//
+//
+//            $router->namespace('Valeviy\EventManager\Controllers')->group(function ($router) {
+//
+//                $router->resource('events', 'EventController@index');
+//
+//            });
+//
+//        });
+//    }
+
+    /**
+     * Get eventmanager title.
+     *
+     * @return Config
+     */
+    public function title()
+    {
+        return config('eventmanager.title');
+    }
+
+
+
+}
