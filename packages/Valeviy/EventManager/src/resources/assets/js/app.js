@@ -1,5 +1,6 @@
 window.Vue = require('vue');
 require('bootstrap');
+window.axios = require('axios');
 window.$ = window.jQuery = require('jquery');
 window.Popper = require('popper.js');
 import CKEditor from '@ckeditor/ckeditor5-vue';
@@ -24,8 +25,19 @@ new Vue({
 
     data: {
 
+        name:"",
+        type:"",
+        numberParticipants:0,
+        logo:"",
         oneday:false,
-
+        shortDescription:"",
+        regEndDate:"",
+        endDate:"",
+        city:"",
+        address:"",
+        phone:"",
+        website:"",
+        email:"",
         currentstep: 1,
 
         steps: [
@@ -77,6 +89,12 @@ new Vue({
                 type:""
             }
         ],
+        files:[
+            {
+             name:""
+            }
+        ],
+        beginDate:"",
     },
 
     methods: {

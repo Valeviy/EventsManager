@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12 mb-3"><label for="short-description">Short description*</label>
-        <input type="text" class="form-control" id="short-description" required="required" name="short-description">
+        <input type="text" class="form-control" id="shortDescription" v-model="short-description" required="required" name="short-description">
         <div class="invalid-feedback"></div>
     </div>
 </div>
