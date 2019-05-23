@@ -1,9 +1,9 @@
-<h3>Step 1</h3>
+{{--<h3 class="mb-5 mt-5" >Step 1: Main Information</h3>--}}
 
 <div class="row">
     <div class="col-md-12 mb-3">
         <label for="name">Title*</label>
-        <input type="text" class="form-control" placeholder="" v-validate="'required'" data-vv-validate-on="change|custom" id="name" name="name" v-model="name">
+        <input type="text" class="form-control" placeholder="Event title" id="name" name="name" v-model="name">
     </div>
 </div>
 <div class="row">
@@ -29,3 +29,4 @@
         {{--<input type="file" class="form-control-file"  placeholder="" required="required" id="logo" name="logo" v-model="logo" >--}}
     </div>
 </div>
+

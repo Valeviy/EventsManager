@@ -15,10 +15,9 @@
 
 @import 'https://fonts.googleapis.com/css?family=Roboto';
 @import "../../../../node_modules/cropperjs/src/css/cropper.scss";
-@import '../../../../node_modules/vue-form-wizard/dist/vue-form-wizard.min.css';
+
 @import "../../../../node_modules/vue-upload-component/dist/vue-upload-component.part.css";
 
-@import '../../../../node_modules/element-ui/lib/theme-chalk/index.css';
 body {
   padding: 0;
   margin: 0;
@@ -419,3 +418,5 @@ a.article:hover {
     display: none;
   }
 }
+
+

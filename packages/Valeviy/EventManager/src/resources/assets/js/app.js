@@ -2,6 +2,7 @@ window.Vue = require('vue');
 require('bootstrap');
 window.axios = require('axios');
 window.$ = window.jQuery = require('jquery');
+require('jquery-validation');
 window.Popper = require('popper.js');
 import CKEditor from '@ckeditor/ckeditor5-vue';
 import {Datetime} from 'vue-datetime';

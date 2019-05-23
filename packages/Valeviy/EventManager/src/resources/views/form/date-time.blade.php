@@ -1,4 +1,4 @@
-<h3>Step 2</h3>
+<h3 class="mb-5 mt-5" >Step 3: Date and Time</h3>
 
 <div class="row">
     <div class="col-md-6 mb-3">
@@ -20,3 +20,4 @@
         <date-time title="Registration ending" type="datetime" name="reg_end" v-model="regEndDate" placeholder="Select date"></date-time>
     </div>
 </div>
+<hr>

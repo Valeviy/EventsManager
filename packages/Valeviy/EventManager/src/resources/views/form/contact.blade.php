@@ -1,4 +1,4 @@
-<h3>Step 3</h3>
+<h3 class="mb-5 mt-5" >Step 4: Contact Information</h3>
 <div class="row">
     <div class="col-md-6 mb-3"><label for="city">City*</label>
         <input type="text" class="form-control" id="city" placeholder="" v-model="city" required="required" name="city">
@@ -23,3 +23,4 @@
         <div class="invalid-feedback"></div>
     </div>
 </div>
+<hr>
