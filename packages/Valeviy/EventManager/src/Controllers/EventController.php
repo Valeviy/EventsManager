@@ -34,7 +34,7 @@ class EventController extends Controller
     }
 
     public function create(Request $request){
-        //создание мероприятия
+        var_dump($request->all());
     }
 
 }

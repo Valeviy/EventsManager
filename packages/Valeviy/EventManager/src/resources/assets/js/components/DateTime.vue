@@ -8,7 +8,7 @@
 
 <script>
     export default {
-        props: ['title', 'name', 'type', 'placeholder', "value", {name: 'dis', type: Boolean, defaultValue: false}],
+        props: ['title', 'name', 'type', 'placeholder', "value", 'dis'],
         computed: {
             isDisabled: function () {
                 return this.dis;

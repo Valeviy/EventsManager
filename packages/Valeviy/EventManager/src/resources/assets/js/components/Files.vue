@@ -1,98 +1,160 @@
 <template>
-    <div class="example-simple">
-        <h1 id="example-title" class="example-title">Simple Example</h1>
-        <div class="upload">
-            <ul>
-                <li v-for="(file, index) in files" :key="file.id">
-                    <span>{{file.name}}</span> -
-                    <span>{{file.size | formatSize}}</span> -
-                    <span v-if="file.error">{{file.error}}</span>
-                    <span v-else-if="file.success">success</span>
-                    <span v-else-if="file.active">active</span>
-                    <span v-else-if="file.active">active</span>
-                    <span v-else></span>
-                </li>
-            </ul>
-            <div class="example-btn">
+    <div class="example-avatar">
+        <div v-show="$refs.upload && $refs.upload.dropActive" class="drop-active">
+            <h3>Drop files to upload</h3>
+        </div>
+        <div class="avatar-upload"  v-show="!edit">
+            <div class="text-center p-2">
+                <label for="logo">
+                    <img :src="logo.length ? logo[0].url : 'https://www.gravatar.com/avatar/default?s=200&r=pg&d=mm'"  class="img-thumbnail" />
+                    <h4 class="pt-2">or<br/>Drop files anywhere to upload</h4>
+                </label>
+            </div>
+            <div class="text-center p-2" >
                 <file-upload
-                        class="btn btn-primary"
-                        post-action="/upload/post"
                         extensions="gif,jpg,jpeg,png,webp"
                         accept="image/png,image/gif,image/jpeg,image/webp"
-                        :multiple="true"
-                        :size="1024 * 1024 * 10"
-                        v-model="files"
-                        @input-filter="inputFilter"
+                        name="logo"
+                        post-action="/event"
+                        class="btn btn-primary"
+                        v-model="logo"
+                        :drop="!edit"
                         @input-file="inputFile"
-                        ref="upload">
-                    <i class="fa fa-plus"></i>
-                    Select files
+                        @input-filter="inputFilter"
+                        ref="upload"
+                        @input="onInput">
+                    Upload avatar
                 </file-upload>
-                <button type="button" class="btn btn-success" v-if="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true">
-                    <i class="fa fa-arrow-up" aria-hidden="true"></i>
-                    Start Upload
-                </button>
-                <button type="button" class="btn btn-danger"  v-else @click.prevent="$refs.upload.active = false">
-                    <i class="fa fa-stop" aria-hidden="true"></i>
-                    Stop Upload
-                </button>
             </div>
         </div>
-        <div class="pt-5">
-            Source code: <a href="https://github.com/lian-yue/vue-upload-component/blob/master/docs/views/examples/Simple.vue">/docs/views/examples/Simple.vue</a>
+
+        <div class="avatar-edit" v-show="logo.length && edit">
+            <div class="avatar-edit-image" v-if="logo.length">
+                <img ref="editImage" :src="logo[0].url" />
+            </div>
+            <div class="text-center p-4">
+                <button type="button" class="btn btn-secondary" @click.prevent="$refs.upload.clear">Cancel</button>
+                <button type="button" class="btn btn-primary" @click.prevent="editSave">Save</button>
+            </div>
         </div>
     </div>
 </template>
 <style>
-    .example-simple label.btn {
-        margin-bottom: 0;
-        margin-right: 1rem;
+    .example-avatar .avatar-upload .img-thumbnail {
+        width: 60%;
+    }
+    .example-avatar .text-center .btn {
+        margin: 0 .5rem
+    }
+    .example-avatar .avatar-edit-image {
+        max-width: 60%;
+    }
+    .example-avatar .drop-active {
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        position: fixed;
+        z-index: 9999;
+        opacity: .6;
+        text-align: center;
+        background: #000;
+    }
+    .example-avatar .drop-active h3 {
+        margin: -.5em 0 0;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+        font-size: 40px;
+        color: #fff;
+        padding: 0;
     }
 </style>
 
-<script>
 
+<script>
+    import Cropper from 'cropperjs'
     export default {
+
         data() {
             return {
-                files: [],
+                logo: [],
+                edit: false,
+                cropper: false,
             }
         },
-
+        watch: {
+            edit(value) {
+                if (value) {
+                    this.$nextTick(function () {
+                        if (!this.$refs.editImage) {
+                            return
+                        }
+                        const cropper = new Cropper(this.$refs.editImage, {
+                            aspectRatio: 4/3,
+                            viewMode: 2,
+                        })
+                        this.cropper = cropper
+                    })
+                } else {
+                    if (this.cropper) {
+                        this.cropper.destroy()
+                        this.cropper = false
+                    }
+                }
+            }
+        },
         methods: {
+            editSave() {
+                this.edit = false
+                let oldFile = this.logo[0]
+                let binStr = atob(this.cropper.getCroppedCanvas().toDataURL(oldFile.type).split(',')[1])
+                let arr = new Uint8Array(binStr.length)
+                for (let i = 0; i < binStr.length; i++) {
+                    arr[i] = binStr.charCodeAt(i)
+                }
+                let file = new File([arr], oldFile.name, { type: oldFile.type })
+                this.$refs.upload.update(oldFile.id, {
+                    file,
+                    type: file.type,
+                    size: file.size,
+                    active: true,
+                })
+            },
+            alert(message) {
+                alert(message)
+            },
+            inputFile(newFile, oldFile, prevent) {
+                if (newFile && !oldFile) {
+                    this.$nextTick(function () {
+                        this.edit = true
+                    })
+                }
+                if (!newFile && oldFile) {
+                    this.edit = false
+                }
+            },
             inputFilter(newFile, oldFile, prevent) {
                 if (newFile && !oldFile) {
-                    // Before adding a file
-                    // 添加文件前
-
-                    // Filter system files or hide files
-                    // 过滤系统文件 和隐藏文件
-                    if (/(\/|^)(Thumbs\.db|desktop\.ini|\..+)$/.test(newFile.name)) {
+                    if (!/\.(gif|jpg|jpeg|png|webp)$/i.test(newFile.name)) {
+                        this.alert('Your choice is not a picture')
                         return prevent()
                     }
-
-                    // Filter php html js file
-                    // 过滤 php html js 文件
-                    if (/\.(php5?|html?|jsx?)$/i.test(newFile.name)) {
-                        return prevent()
+                }
+                if (newFile && (!oldFile || newFile.file !== oldFile.file)) {
+                    newFile.url = ''
+                    let URL = window.URL || window.webkitURL
+                    if (URL && URL.createObjectURL) {
+                        newFile.url = URL.createObjectURL(newFile.file)
                     }
                 }
             },
-
-            inputFile(newFile, oldFile) {
-                if (newFile && !oldFile) {
-                    // add
-                    console.log('add', newFile)
-                }
-                if (newFile && oldFile) {
-                    // update
-                    console.log('update', newFile)
-                }
-
-                if (!newFile && oldFile) {
-                    // remove
-                    console.log('remove', oldFile)
-                }
+            onInput(){
+                this.$emit('input', this.$refs.upload.files[0]);
             }
         }
     }

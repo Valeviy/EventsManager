@@ -6,7 +6,7 @@
         <button type="button" class="btn btn-primary" @click="nextStep" :disabled="laststep">
             Next
         </button>
-        <button type="submit" class="btn btn-primary" v-if="laststep">
+        <button type="submit" class="btn btn-primary"  v-if="laststep">
             Submit
         </button>
     </div>

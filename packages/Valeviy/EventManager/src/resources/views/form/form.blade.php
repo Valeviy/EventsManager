@@ -14,9 +14,10 @@
             {{--</div>--}}
         </div>
 
-        <form method="POST" action="">
+        <form method="POST" action="" >
             <div class="container">
                 <div id="app">
+
                     <step-navigation :steps="steps" :currentstep="currentstep">
                     </step-navigation>
 
@@ -28,24 +29,24 @@
                         @include('events::form.description-program')
                     </div>
 
-                    <div v-show="currentstep == 3">
-                        @include('events::form.date-time')
-                    </div>
+                    {{--<div v-show="currentstep == 3">--}}
+                        {{--@include('events::form.date-time')--}}
+                    {{--</div>--}}
 
-                    <div v-show="currentstep == 4">
-                        @include('events::form.contact')
-                    </div>
-                    <div v-show="currentstep == 5">
-                        @include('events::form.organizers')
-                    </div>
-                    <div v-show="currentstep == 6">
-                        @include('events::form.files')
-                    </div>
-                    @if($customAvailable)
-                        <div v-show="currentstep == 7">
-                            @include('events::form.registration-form')
-                        </div>
-                    @endif
+                    {{--<div v-show="currentstep == 4">--}}
+                        {{--@include('events::form.contact')--}}
+                    {{--</div>--}}
+                    {{--<div v-show="currentstep == 5">--}}
+                        {{--@include('events::form.organizers')--}}
+                    {{--</div>--}}
+                    {{--<div v-show="currentstep == 6">--}}
+                        {{--@include('events::form.files')--}}
+                    {{--</div>--}}
+                    {{--@if($customAvailable)--}}
+                        {{--<div v-show="currentstep == 7">--}}
+                            {{--@include('events::form.registration-form')--}}
+                        {{--</div>--}}
+                    {{--@endif--}}
                     <step v-for="step in steps" :currentstep="currentstep" :key="step.id" :step="step"
                           :stepcount="steps.length" @step-change="stepChanged">
                     </step>

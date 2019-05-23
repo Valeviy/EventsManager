@@ -5,10 +5,9 @@ window.$ = window.jQuery = require('jquery');
 window.Popper = require('popper.js');
 import CKEditor from '@ckeditor/ckeditor5-vue';
 import {Datetime} from 'vue-datetime';
-import VueUploadComponent from 'vue-upload-component';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
-
+import VueUploadComponent from 'vue-upload-component';
+Vue.use(CKEditor);
 Vue.component("step-navigation-step", require('./components/StepNavigationStep.vue').default);
 Vue.component("step-navigation",require('./components/StepNavigation.vue').default);
 Vue.component("step", require('./components/Step.vue').default);
@@ -18,17 +17,19 @@ Vue.component("text-area",require('./components/TextArea.vue').default);
 Vue.component("datetime", Datetime);
 Vue.component('file-upload', VueUploadComponent);
 Vue.component('file', require('./components/Files.vue').default);
-Vue.use(CKEditor);
+Vue.component('organizer', require('./components/Organizer.vue').default);
+Vue.component('file-upload', VueUploadComponent);
+Vue.component('input-fields', require('./components/InputFields.vue').default);
 
 new Vue({
     el: "#app",
 
     data: {
-
+        custom_fields: false,
         name:"",
         type:"",
+        logo:[],
         numberParticipants:0,
-        logo:"",
         oneday:false,
         shortDescription:"",
         regEndDate:"",
@@ -44,7 +45,7 @@ new Vue({
             {
                 id: 1,
                 title: "Main information",
-                icon_class: "fa fa-user-circle-o"
+                icon_class: "fa fa-user-circle"
             },
             {
                 id: 2,
@@ -75,25 +76,20 @@ new Vue({
                 icon_class: "fa fa-paper-plane"
             }
         ],
-        editorDataEvent:'<p> Some text about event',
-        editorDataProgram:'<p> Some text about event program',
+        editorDataEvent:"<p> Some text about event",
+        editorDataProgram:"<p> Some text about event program",
         editor: ClassicEditor,
         editorConfig: {
             removePlugins: [ 'ImageToolbar', 'ImageCaption', 'ImageStyle', 'ImageUpload' ],
         },
-        newOrganizerName:"",
-        newOrganizerType:"",
         organizers: [
-            {
-                name:"",
-                type:""
-            }
         ],
         files:[
             {
              name:""
             }
         ],
+        fields:[],
         beginDate:"",
     },
 
@@ -101,14 +97,7 @@ new Vue({
         stepChanged(step) {
             this.currentstep = step;
         },
-        addOrganizer(){
-            this.organizers.push({
-                name:this.newOrganizerName,
-                type: this.newOrganizerType
-            });
-            this.newOrganizerName = '';
-            this.newOrganizerType = '';
-        }
+
     }
 });
 
