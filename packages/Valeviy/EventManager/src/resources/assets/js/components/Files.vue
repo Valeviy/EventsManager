@@ -1,161 +1,69 @@
-<template>
-    <div class="example-avatar">
-        <div v-show="$refs.upload && $refs.upload.dropActive" class="drop-active">
-            <h3>Drop files to upload</h3>
-        </div>
-        <div class="avatar-upload"  v-show="!edit">
-            <div class="text-center p-2">
-                <label for="logo">
-                    <img :src="logo.length ? logo[0].url : 'https://www.gravatar.com/avatar/default?s=200&r=pg&d=mm'"  class="img-thumbnail" />
-                    <h4 class="pt-2">or<br/>Drop files anywhere to upload</h4>
-                </label>
-            </div>
-            <div class="text-center p-2" >
-                <file-upload
-                        extensions="gif,jpg,jpeg,png,webp"
-                        accept="image/png,image/gif,image/jpeg,image/webp"
-                        name="logo"
-                        post-action="/event"
-                        class="btn btn-primary"
-                        v-model="logo"
-                        :drop="!edit"
-                        @input-file="inputFile"
-                        @input-filter="inputFilter"
-                        ref="upload"
-                        @input="onInput">
-                    Upload avatar
-                </file-upload>
-            </div>
-        </div>
 
-        <div class="avatar-edit" v-show="logo.length && edit">
-            <div class="avatar-edit-image" v-if="logo.length">
-                <img ref="editImage" :src="logo[0].url" />
-            </div>
-            <div class="text-center p-4">
-                <button type="button" class="btn btn-secondary" @click.prevent="$refs.upload.clear">Cancel</button>
-                <button type="button" class="btn btn-primary" @click.prevent="editSave">Save</button>
-            </div>
-        </div>
+
+<template>
+
+
+<div>
+    <div class="col-md-12 mb-5">
+        <div class="btn btn-primary" v-on:click="addFiles()"><i class="fa file-uploads"></i>{{button_title}} +</div>
+        <label for="files">
+            <span class="fa file-uploads" aria-hidden="true"></span>
+            <input type="file"  id="files" ref="files" multiple v-on:change="handleFilesUpload()" style="display:none">
+        </label>
     </div>
+
+        <div class="col-md-12 mb-5 mt-5">
+            <div v-for="(file, key) in files" class="file form-control"><i class="fas fa-file mr-5"></i> {{ file.name }} <span class="remove-file ml-5" v-on:click="removeFile( key )">  <i class="fas fa-minus-circle"></i></span></div>
+        </div>
+</div>
 </template>
+
 <style>
-    .example-avatar .avatar-upload .img-thumbnail {
-        width: 60%;
-    }
-    .example-avatar .text-center .btn {
-        margin: 0 .5rem
-    }
-    .example-avatar .avatar-edit-image {
-        max-width: 60%;
-    }
-    .example-avatar .drop-active {
-        top: 0;
-        bottom: 0;
-        right: 0;
-        left: 0;
-        position: fixed;
-        z-index: 9999;
-        opacity: .6;
-        text-align: center;
-        background: #000;
-    }
-    .example-avatar .drop-active h3 {
-        margin: -.5em 0 0;
-        position: absolute;
-        top: 50%;
-        left: 0;
-        right: 0;
-        -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-        transform: translateY(-50%);
-        font-size: 40px;
-        color: #fff;
-        padding: 0;
+.file{
+    margin: 10px;
+}
+.fa-file{
+    font-size: 20px;
+    color: dodgerblue;
+}
+    span.remove-file{
+        color: red;
+        cursor: pointer;
+        float: right;
     }
 </style>
 
-
 <script>
-    import Cropper from 'cropperjs'
     export default {
-
-        data() {
+props:['button_title'],
+        data(){
             return {
-                logo: [],
-                edit: false,
-                cropper: false,
+                files: []
             }
         },
-        watch: {
-            edit(value) {
-                if (value) {
-                    this.$nextTick(function () {
-                        if (!this.$refs.editImage) {
-                            return
-                        }
-                        const cropper = new Cropper(this.$refs.editImage, {
-                            aspectRatio: 4/3,
-                            viewMode: 2,
-                        })
-                        this.cropper = cropper
-                    })
-                } else {
-                    if (this.cropper) {
-                        this.cropper.destroy()
-                        this.cropper = false
-                    }
-                }
-            }
-        },
+
+
         methods: {
-            editSave() {
-                this.edit = false
-                let oldFile = this.logo[0]
-                let binStr = atob(this.cropper.getCroppedCanvas().toDataURL(oldFile.type).split(',')[1])
-                let arr = new Uint8Array(binStr.length)
-                for (let i = 0; i < binStr.length; i++) {
-                    arr[i] = binStr.charCodeAt(i)
-                }
-                let file = new File([arr], oldFile.name, { type: oldFile.type })
-                this.$refs.upload.update(oldFile.id, {
-                    file,
-                    type: file.type,
-                    size: file.size,
-                    active: true,
-                })
+
+            addFiles(){
+                this.$refs.files.click();
             },
-            alert(message) {
-                alert(message)
+
+
+
+            handleFilesUpload(){
+                let uploadedFiles = this.$refs.files.files;
+
+                for( var i = 0; i < uploadedFiles.length; i++ ){
+                    this.files.push( uploadedFiles[i] );
+                }
+                this.$emit('input', this.files);
             },
-            inputFile(newFile, oldFile, prevent) {
-                if (newFile && !oldFile) {
-                    this.$nextTick(function () {
-                        this.edit = true
-                    })
-                }
-                if (!newFile && oldFile) {
-                    this.edit = false
-                }
-            },
-            inputFilter(newFile, oldFile, prevent) {
-                if (newFile && !oldFile) {
-                    if (!/\.(gif|jpg|jpeg|png|webp)$/i.test(newFile.name)) {
-                        this.alert('Your choice is not a picture')
-                        return prevent()
-                    }
-                }
-                if (newFile && (!oldFile || newFile.file !== oldFile.file)) {
-                    newFile.url = ''
-                    let URL = window.URL || window.webkitURL
-                    if (URL && URL.createObjectURL) {
-                        newFile.url = URL.createObjectURL(newFile.file)
-                    }
-                }
-            },
-            onInput(){
-                this.$emit('input', this.$refs.upload.files[0]);
+
+            removeFile( key ){
+                this.files.splice( key, 1 );
             }
         }
     }
 </script>
+

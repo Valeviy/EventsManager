@@ -13,7 +13,6 @@
 @import "../../../../node_modules/vue-datetime/dist/vue-datetime.css";
 
 
-@import 'https://fonts.googleapis.com/css?family=Roboto';
 @import "../../../../node_modules/cropperjs/src/css/cropper.scss";
 
 @import "../../../../node_modules/vue-upload-component/dist/vue-upload-component.part.css";
@@ -21,107 +20,12 @@
 body {
   padding: 0;
   margin: 0;
-  background-color: #fff;
-  font-family: 'Roboto', sans-serif;
+  //background-color: #fff;
+  background: #fafafa;
+  //position: relative;
+  //overflow-x: hidden;
 }
 
-.step-wrapper {
-  padding: 20px 0;
-  display: none;
-
-  &.active {
-    display: block;
-  }
-}
-
-.step-indicator {
-  border-collapse: separate;
-  display: table;
-  margin-left: 0px;
-  position: relative;
-  table-layout: fixed;
-  text-align: center;
-  vertical-align: middle;
-  padding-left: 0;
-  padding-top: 20px;
-
-  li {
-    display: table-cell;
-    position: relative;
-    float: none;
-    padding: 0;
-    width: 1%;
-
-    &:after {
-      background-color: $wizard-color-neutral;
-      content: "";
-      display: block;
-      height: 1px;
-      position: absolute;
-      width: 100%;
-      top: $wizard-step-width-height/2;
-    }
-
-    &:after {
-      left: 50%;
-    }
-
-    &:last-child {
-      &:after {
-        display: none;
-      }
-    }
-
-    &.active {
-      .step {
-        border-color: $wizard-color-active;
-        color: $wizard-color-active;
-      }
-
-      .caption {
-        color: $wizard-color-active;
-      }
-    }
-
-    &.complete {
-      &:after {
-        background-color: $wizard-color-complete;
-      }
-
-      .step {
-        border-color: $wizard-color-complete;
-        color: $wizard-color-complete;
-      }
-
-      .caption {
-        color: $wizard-color-complete;
-      }
-    }
-  }
-
-  .step {
-    background-color: #fff;
-    border-radius: 50%;
-    border: 1px solid $wizard-color-neutral;
-    color: $wizard-color-neutral;
-    font-size: $wizard-step-font-size;
-    height: $wizard-step-width-height;
-    line-height: $wizard-step-width-height;
-    margin: 0 auto;
-    position: relative;
-    width: $wizard-step-width-height;
-    z-index: 1;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  .caption {
-    color: $wizard-color-neutral;
-    padding: 11px 16px;
-  }
-}
 
 /* The switch - the box around the slider */
 .switch {
@@ -216,16 +120,35 @@ span {
   display: inline-block;
 }
 
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
+.navbar {
+  padding: 15px 10px;
+  background: #fff;
+  border: none;
+  border-radius: 0;
+  margin-bottom: 40px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-btn {
+  box-shadow: none;
+  outline: none !important;
+  border: none;
+}
 
 .wrapper {
   display: flex;
   align-items: stretch;
+
 }
 
 #sidebar {
+  height: 100%;
+  position: fixed;
+  z-index: 999999;
   min-width: 250px;
   max-width: 250px;
   background: #7386D5;
@@ -238,6 +161,22 @@ span {
   max-width: 80px;
   text-align: center;
 }
+
+.overlay {
+  display: none;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 998;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
+.overlay.active {
+  display: block;
+  opacity: 1;
+}
+
 
 #sidebar.active .sidebar-header h3,
 #sidebar.active .CTAs {
@@ -364,6 +303,7 @@ a.article:hover {
   padding: 20px;
   min-height: 100vh;
   transition: all 0.3s;
+  padding-left: 100px;
 }
 
 /* ---------------------------------------------------
@@ -372,10 +312,10 @@ a.article:hover {
 
 @media (max-width: 768px) {
   #sidebar {
-    min-width: 80px;
-    max-width: 80px;
+    min-width: 250px;
+    max-width: 250px;
     text-align: center;
-    margin-left: -80px !important;
+    //margin-left: -80px !important;
   }
   .dropdown-toggle::after {
     top: auto;
@@ -396,17 +336,19 @@ a.article:hover {
     display: block;
   }
   #sidebar ul li a {
-    padding: 20px 10px;
+    //padding: 20px 10px;
+    text-align: center;
   }
   #sidebar ul li a span {
     font-size: 0.85em;
   }
   #sidebar ul li a i {
     margin-right: 0;
-    display: block;
+    //display: block;
   }
   #sidebar ul ul a {
-    padding: 10px !important;
+    //padding: 10px !important;
+    text-align: center;
   }
   #sidebar ul li a i {
     font-size: 1.3em;
@@ -418,5 +360,4 @@ a.article:hover {
     display: none;
   }
 }
-
 

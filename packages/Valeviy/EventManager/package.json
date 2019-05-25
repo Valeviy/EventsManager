@@ -10,6 +10,7 @@
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.8.2",
     "axios": "^0.18",
     "bootstrap": "^4.0.0",
     "cross-env": "^5.1",
@@ -27,9 +28,13 @@
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^12.1.0",
     "@ckeditor/ckeditor5-vue": "^1.0.0-beta.2",
+    "@xkeshi/image-compressor": "^0.5.3",
+    "cropperjs": "^1.5.1",
     "font-awesome": "^4.7.0",
+    "install": "^0.12.2",
     "luxon": "^1.13.0",
     "vue-datetime": "^1.0.0-beta.10",
+    "vue-form-wizard": "^0.8.4",
     "vue-upload-component": "^2.8.20",
     "weekstart": "^1.0.0"
   }

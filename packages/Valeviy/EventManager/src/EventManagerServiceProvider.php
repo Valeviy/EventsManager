@@ -24,6 +24,8 @@ class EventManagerServiceProvider extends ServiceProvider{
             __DIR__ . '/public/fonts' => public_path(),
         ], 'font');
 
+        $this->publishes([__DIR__.'/resources/lang' => resource_path('lang')], 'event-manager-lang');
+
 
     }
 

@@ -1,7 +1,7 @@
 <template>
     <div>
-        <label :for="name">{{title}}*</label>
-        <ckeditor   :config="config" :editor='editor' v-model="text" @input="onInput"></ckeditor>
+        <label :for="name">{{title}}</label>
+        <ckeditor :config="config" :editor='editor' v-model="text" @input="onInput" ></ckeditor>
         <input type="hidden" :id="name" :name="name" v-model="text" >
     </div>
 </template>

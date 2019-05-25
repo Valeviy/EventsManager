@@ -1,8 +1,8 @@
-<h3 class="mb-5 mt-5" >Step 6: Files and Additional Material</h3>
+<h3 class="mb-5 mt-5" >{{trans('eventmanager.step')}}  6: {{trans('eventmanager.files_and_material')}} </h3>
 <div class="row">
-    <div class="col-md-12 mb-3"> <label for="files">Add file</label>
-        <input type="file" class="form-control-file" placeholder="" required="required" id="files" name="files">
-        <div class="invalid-feedback"> </div>
+    {{--<div class="col-md-12 mb-3">--}}
+        {{--<label for="files">{{trans('eventmanager.add_files')}}</label>--}}
+        <files v-model="files" button_title="{{trans('eventmanager.add_files')}}"></files>
     </div>
-</div>
+{{--</div>--}}
 <hr>

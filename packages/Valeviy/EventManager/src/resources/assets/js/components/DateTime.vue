@@ -1,6 +1,6 @@
 <template>
     <div>
-        <label :for="name">{{title}}*</label>
+        <label :for="name">{{title}}</label>
         <datetime :placeholder="placeholder" :type="type" :input-id="name" input-class="form-control" @input="onInput"
                   :disabled="isDisabled" v-model="date"></datetime>
     </div>
