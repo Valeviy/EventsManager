@@ -16,8 +16,9 @@ class CreateRolesTable extends Migration
         $connection = config('eventmanager.table-models.connection') ?: config('database.default');
 
         Schema::connection($connection)->create(config('eventmanager.table-models.roles_table'), function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name')->unique();
+            $table->increments('id');
+            $table->string('slug');
+            $table->string('name');
             $table->timestamps();
         });
     }

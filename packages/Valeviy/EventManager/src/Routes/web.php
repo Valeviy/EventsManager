@@ -7,5 +7,9 @@ Route::group(['namespace'=> 'Valeviy\EventManager\Controllers'],function (){
 });
 
 
-
+Route::group(['middleware' => 'role:admin'], function() {
+    Route::get('/admin', function() {
+        return 'Welcome Admin';
+    });
+});
 

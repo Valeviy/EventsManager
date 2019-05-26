@@ -44,13 +44,18 @@ return [
         // Database connection for following tables.
         'connection' => 'mysql',
 
-        // Users table and model.
-//        'users_table' => 'users',
-//        'users_model' => App\User::class,
+//         Users table and model.
+        'users_table' => 'users',
+        'users_model' => App\User::class,
 
-        // Roles table and model.
-//        'roles_table' => 'roles',
-//        'roles_model' => Valeviy\EventManager\Role::class,
+//         Roles table and model.
+        'roles_table' => 'roles',
+        'roles_model' => Valeviy\EventManager\Role::class,
+
+        // Permission table and model.
+
+        'permissions_table' => 'permissions',
+        'permissions_model' => Valeviy\EventManager\Permissions::class,
 
         // Event table and model.
         'events_table' => 'events',
@@ -74,7 +79,10 @@ return [
 //        'event_requests_model' => Valeviy\EventManager\EventRequest::class,
 
         // Pivot table
-//        'role_users_table' => 'user_roles',
+        'users_permissions_table' => 'users_permissions',
+        'users_roles_table' => 'users_roles',
+        'roles_permissions_table' => 'roles_permissions'
+
 
     ],
 
