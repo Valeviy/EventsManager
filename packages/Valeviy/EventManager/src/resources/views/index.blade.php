@@ -16,12 +16,24 @@
         </div>
 
         <ul class="list-unstyled components">
-            <li><a href="#" class="active">
-                    <i class="fas fa-briefcase"></i>
-                    Create event
+            @guest
+            <li><a href="/events" >
+                    <i class="fas fa-calendar-alt"></i>
+                    Все мероприятия
                 </a></li>
             <li>
-
+            @else
+                <li><a href="/events" >
+                        <i class="fas fa-calendar-alt"></i>
+                        Все события
+                    </a></li>
+                <li>
+            <li><a href="/event" >
+                    <i class="fas fa-calendar-plus"></i>
+                    Добавить событие
+                </a></li>
+            <li>
+@endif
         </ul>
     </nav>
 
@@ -33,17 +45,47 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item active">
+                            @guest
+                            <li class="nav-item" ><a class="nav-link {{ \Illuminate\Support\Facades\Request::is('login') ? 'active' : null }}" href="{{ route('login') }}"><span class= "icon-login"></span> Вход</a></li>
+                                <li class="nav-item"><a class="nav-link {{ \Illuminate\Support\Facades\Request::is('register') ? 'active' : null }}" href="{{ route('register') }}"><span class= "icon-user"></span> Регистрация</a></li>
+                            @else
+                                <li>
+                                    <p></p>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="btn btn-outline-info " href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                                        Выход
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </a>
+                                </li>
+                                @endif
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>
         <section >
+            <div id="app">
             @section('content')
 
             @show
+                </div>
         </section>
+        <footer class="mt-5 mb-3 text-center">
+            <p>Eventmanager 2019</p>
+        </footer>
     </div>
+
     <div class="overlay"></div>
+
 </div>
 
 <script type="text/javascript" src="{{ asset("vendor/Valeviy/EventManager/js/app.js") }}"></script>

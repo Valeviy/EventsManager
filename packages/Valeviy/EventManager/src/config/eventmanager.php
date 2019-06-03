@@ -40,20 +40,18 @@ return [
     |
     */
     'table-models' => [
-
         // Database connection for following tables.
         'connection' => 'mysql',
 
-//         Users table and model.
+        //Users table and model.
         'users_table' => 'users',
         'users_model' => App\User::class,
 
-//         Roles table and model.
+        //Roles table and model.
         'roles_table' => 'roles',
         'roles_model' => Valeviy\EventManager\Role::class,
 
         // Permission table and model.
-
         'permissions_table' => 'permissions',
         'permissions_model' => Valeviy\EventManager\Permissions::class,
 
@@ -61,27 +59,26 @@ return [
         'events_table' => 'events',
         'events_model' => Valeviy\EventManager\Events::class,
 
-        // Organizers table and model.
-//        'organizers_table' => 'organizers',
-//        'organizers_model' => Valeviy\EventManager\Organizer::class,
+        //Organizers table and model.
+        'organizers_table' => 'organizers',
+        'organizers_model' => Valeviy\EventManager\Organizer::class,
 
+        //EventParticipants table and model.
+        'event_participants_table' => 'event_participants',
+        'event_participants_model' => Valeviy\EventManager\EventParticipant::class,
 
-        // EventParticipants table and model.
-//        'event_participants_table' => 'event_participants',
-//        'event_participants_model' => Valeviy\EventManager\EventParticipant::class,
+        //EventFiles table and model.
+        'event_files_table' => 'event_files',
+        'event_files_model' => Valeviy\EventManager\EventFile::class,
 
-        // EventFiles table and model.
-//        'event_files_table' => 'event_files',
-//        'event_files_model' => Valeviy\EventManager\EventFile::class,
-
-        // EventRequests table and model.
-//        'event_requests_table' => 'event_requests',
-//        'event_requests_model' => Valeviy\EventManager\EventRequest::class,
+        //EventRequests table and model.
+        'event_requests_table' => 'event_requests',
+        'event_requests_model' => Valeviy\EventManager\EventRequest::class,
 
         // Pivot table
         'users_permissions_table' => 'users_permissions',
         'users_roles_table' => 'users_roles',
-        'roles_permissions_table' => 'roles_permissions'
+        'roles_permissions_table' => 'roles_permissions',
 
 
     ],
@@ -122,7 +119,6 @@ return [
     'field-structure' => [
         'name' => 'name',
         'type' => 'type',
-        'require' => 'require'
     ],
 
 
@@ -139,11 +135,11 @@ return [
     'upload' => [
 
         // Disk in `config/filesystem.php`.
-        'disk' => 'local',
+        'disk' => 'public',
 
-        // Image and file upload path under the disk above.
         'directory' => [
-            'image' => 'images',
+            'package_dir' => 'events',
+            'logo' => 'logo',
             'file'  => 'files',
         ],
     ],
@@ -186,5 +182,11 @@ return [
         'middleware' => ['events', 'admin'],
     ],
 
+    'auth' => [
+
+        'login_controller' => Valeviy\EventManager\Controllers\EventLoginController::class,
+        'register_controller' => Valeviy\EventManager\Controllers\RegisterController::class,
+
+    ],
 
 ];

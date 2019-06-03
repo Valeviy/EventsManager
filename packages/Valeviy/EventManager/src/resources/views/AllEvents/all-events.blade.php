@@ -2,46 +2,28 @@
 @section('content')
     <div class="py-4 ">
         <div class="container">
+            <h2>Все мероприятия:</h2>
             <div class="row">
+                @foreach($events as $event)
                 <div class="col-md-4 p-3">
-                    <div class="card box-shadow">
-                        <img class="card-img-top" src="{{ asset("vendor/Valeviy/EventManager/img/event.png") }}">
+                    <div class="card  box-shadow">
+                        <img class="card-img-top" style=" width: 100%;
+    height: 15vw;
+    object-fit: cover;"  src="{{ $event->logo }}" onclick="/events/{{$event->id}}">
                         <div class="card-body">
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            <h4 class="card-title"style=" text-overflow: ellipsis; width: inherit; white-space:pre; overflow:hidden; ">{{ $event->name }}</h4>
+                            <small class="text-muted">{{ $event->type}}</small>
+                            <p class="card-text mt-1" style=" text-overflow: ellipsis; width: inherit; white-space:pre; overflow:hidden; " >{{ $event->short_description }}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                </div> <small class="text-muted">9 mins</small> </div>
+                                    <a  href="/events/{{$event->id}}" class="btn btn-outline-primary">Участвовать</a>
+                                </div>
+                                <small class="text-muted">{{  (new DateTime($event->beginning))->format('d-m-Y')}}</small>
+                            <small class="text-muted">{{ $event->city}}</small> </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 p-3">
-                    <div class="card box-shadow">
-                        <img class="card-img-top" src="https://pingendo.com/assets/photos/wireframe/photo-1.jpg">
-                        <div class="card-body">
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                </div> <small class="text-muted">9 mins</small> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 p-3">
-                    <div class="card box-shadow">
-                        <img class="card-img-top" src="https://pingendo.com/assets/photos/wireframe/photo-1.jpg">
-                        <div class="card-body">
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                </div> <small class="text-muted">9 mins</small> </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>

@@ -13,9 +13,9 @@
             </div>
         </div>
 
-        <form method="POST" action="/event" @submit.prevent="onSubmit">
+        <form method="POST" action="" @submit.prevent="onSubmit">
             {{ csrf_field() }}
-            <div id="app">
+
                 @include('events::form.main-information')
 
                 @include('events::form.description-program')
@@ -39,10 +39,9 @@
                 </div>
                 </div>
 
-            </div>
-
         </form>
     </div>
+
 @endsection
 
 

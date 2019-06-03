@@ -20,9 +20,6 @@ class CreateOrganizersTable extends Migration
             $table->string('name');
             $table->integer('event_id');
             $table->string('type');
-            $table->string('phone')->nullable();
-            $table->string('email')->nullable();
-            $table->string('about')->nullable();
             $table->index('event_id');
             $table->timestamps();
         });

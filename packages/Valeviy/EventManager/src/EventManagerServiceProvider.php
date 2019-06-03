@@ -6,6 +6,16 @@ use Illuminate\Support\ServiceProvider;
 
 class EventManagerServiceProvider extends ServiceProvider{
 
+
+    protected $routeMiddleware = [
+        'eventmanager.role' => Middleware\RoleMiddleware::class,
+    ];
+
+    protected $middlewareGroups = [
+        'eventmanager' => [
+            'eventmanager.role',
+        ],
+    ];
     public function boot(){
 
         $this->loadViewsFrom(__DIR__ . '/resources/views/', 'events');
@@ -33,6 +43,23 @@ class EventManagerServiceProvider extends ServiceProvider{
         $this->app->bind('EventManager', function(){
             return new \Valeviy\EventManager\EventManager;
         });
+
+//        app('router')->aliasMiddleware('em-auth', Middleware\RoleMiddleware::class);
+        $this->registerRouteMiddleware();
+
+    }
+
+    protected function registerRouteMiddleware()
+    {
+        // register route middleware.
+        foreach ($this->routeMiddleware as $key => $middleware) {
+            app('router')->aliasMiddleware($key, $middleware);
+        }
+
+        // register middleware group.
+        foreach ($this->middlewareGroups as $key => $middleware) {
+            app('router')->middlewareGroup($key, $middleware);
+        }
     }
 
 }

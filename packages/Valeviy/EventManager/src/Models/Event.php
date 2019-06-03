@@ -12,9 +12,8 @@ class Event extends Model
 
         'name', 'type', 'short_description',
         'full_description', 'city', 'address',
-        'begin', 'end', 'reg_end', 'number_participants',
-        'logo', 'website', 'email', 'phone', 'program',
-        'ticket_available', 'promocode_available',
+        'beginning', 'ending', 'reg_end', 'number_participants',
+        'logo', 'website', 'email', 'phone', 'program', 'user_id',
         'status','custom_fields'
     ];
 
@@ -109,6 +108,7 @@ class Event extends Model
 
         return $this->hasOne(config($relatedModel), 'event_id','id');
     }
+
 
 
 
