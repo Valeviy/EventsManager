@@ -44,8 +44,8 @@ class EventManagerServiceProvider extends ServiceProvider{
             return new \Valeviy\EventManager\EventManager;
         });
 
-//        app('router')->aliasMiddleware('em-auth', Middleware\RoleMiddleware::class);
-        $this->registerRouteMiddleware();
+        app('router')->aliasMiddleware('role', Middleware\RoleMiddleware::class);
+//        $this->registerRouteMiddleware();
 
     }
 

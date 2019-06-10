@@ -53,8 +53,10 @@ return [
     'add_number_of_participants' => 'Введите количество участников',
     'all_events' => 'Все мероприятия',
     'participate' => 'Участвовать',
-
-
+    'status' => 'Статус',
+    'accept' => 'Принять',
+    'reject' => 'Отклонить',
+    'add_message' => 'Добавить сообщение'
 
 
 ];

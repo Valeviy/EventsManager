@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRolesPermissionsTable extends Migration
+class CreateEventFilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +14,12 @@ class CreateRolesPermissionsTable extends Migration
     public function up()
     {
         $connection = config('eventmanager.table-models.connection') ?: config('database.default');
-
-        Schema::connection($connection)->create(config('eventmanager.table-models.roles_permissions_table'), function (Blueprint $table) {
-            $table->integer('role_id')->unsigned();
-            $table->integer('permission_id')->unsigned();
-
-
-            $table->primary(['role_id','permission_id']);
+        Schema::connection($connection)->create(config('eventmanager.table-models.event_files_table'), function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('event_id');
+            $table->string('filename');
+            $table->index('event_id');
+            $table->timestamps();
         });
     }
 
@@ -32,7 +31,6 @@ class CreateRolesPermissionsTable extends Migration
     public function down()
     {
         $connection = config('eventmanager.table-models.connection') ?: config('database.default');
-
-        Schema::connection($connection)->dropIfExists(config('eventmanager.table-models.roles_permissions_table'));
+        Schema::connection($connection)->dropIfExists(config('eventmanager.table-models.event_files_table'));
     }
 }

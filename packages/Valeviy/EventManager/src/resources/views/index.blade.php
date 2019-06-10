@@ -19,7 +19,7 @@
             @guest
             <li><a href="/events" >
                     <i class="fas fa-calendar-alt"></i>
-                    Все мероприятия
+                    Все события
                 </a></li>
             <li>
             @else
@@ -27,12 +27,20 @@
                         <i class="fas fa-calendar-alt"></i>
                         Все события
                     </a></li>
-                <li>
+
             <li><a href="/event" >
-                    <i class="fas fa-calendar-plus"></i>
-                    Добавить событие
-                </a></li>
-            <li>
+                        <i class="fas fa-calendar-plus"></i>
+                        Добавить событие
+                    </a></li>
+
+                @role('moderate')
+                <li><a href="/moderate" >
+                        <i class="fas fa-calendar-check"></i>
+                        Модерация событий
+                    </a></li>
+                @endrole
+
+
 @endif
         </ul>
     </nav>
@@ -74,6 +82,7 @@
         </nav>
         <section >
             <div id="app">
+
             @section('content')
 
             @show

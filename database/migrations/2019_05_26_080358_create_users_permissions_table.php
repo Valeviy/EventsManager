@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRolesPermissionsTable extends Migration
+class CreateUsersPermissionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,11 +16,11 @@ class CreateRolesPermissionsTable extends Migration
         $connection = config('eventmanager.table-models.connection') ?: config('database.default');
 
         Schema::connection($connection)->create(config('eventmanager.table-models.roles_permissions_table'), function (Blueprint $table) {
-            $table->integer('role_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->integer('permission_id')->unsigned();
 
 
-            $table->primary(['role_id','permission_id']);
+            $table->primary(['user_id','permission_id']);
         });
     }
 

@@ -40,49 +40,45 @@ return [
     |
     */
     'table-models' => [
-
         // Database connection for following tables.
         'connection' => 'mysql',
 
-//         Users table and model.
+        //Users table and model.
         'users_table' => 'users',
         'users_model' => App\User::class,
 
-//         Roles table and model.
+        //Roles table and model.
         'roles_table' => 'roles',
-        'roles_model' => Valeviy\EventManager\Role::class,
+        'roles_model' => Valeviy\EventManager\Models\Role::class,
 
         // Permission table and model.
-
         'permissions_table' => 'permissions',
-        'permissions_model' => Valeviy\EventManager\Permissions::class,
+        'permissions_model' => Valeviy\EventManager\Models\Permission::class,
 
         // Event table and model.
         'events_table' => 'events',
-        'events_model' => Valeviy\EventManager\Events::class,
+        'events_model' => Valeviy\EventManager\Models\Event::class,
 
-        // Organizers table and model.
-//        'organizers_table' => 'organizers',
-//        'organizers_model' => Valeviy\EventManager\Organizer::class,
+        //Organizers table and model.
+        'organizers_table' => 'organizers',
+        'organizers_model' => Valeviy\EventManager\Models\Organizer::class,
 
+        //EventParticipants table and model.
+        'event_participants_table' => 'event_participants',
+        'event_participants_model' => Valeviy\EventManager\Models\EventParticipant::class,
 
-        // EventParticipants table and model.
-//        'event_participants_table' => 'event_participants',
-//        'event_participants_model' => Valeviy\EventManager\EventParticipant::class,
+        //EventFiles table and model.
+        'event_files_table' => 'event_files',
+        'event_files_model' => Valeviy\EventManager\Models\EventFile::class,
 
-        // EventFiles table and model.
-//        'event_files_table' => 'event_files',
-//        'event_files_model' => Valeviy\EventManager\EventFile::class,
-
-        // EventRequests table and model.
-//        'event_requests_table' => 'event_requests',
-//        'event_requests_model' => Valeviy\EventManager\EventRequest::class,
+        //EventRequests table and model.
+        'event_requests_table' => 'event_requests',
+        'event_requests_model' => Valeviy\EventManager\Models\EventRequest::class,
 
         // Pivot table
         'users_permissions_table' => 'users_permissions',
         'users_roles_table' => 'users_roles',
         'roles_permissions_table' => 'roles_permissions',
-        'creators_events_table' => 'creators_events'
 
 
     ],
@@ -123,7 +119,6 @@ return [
     'field-structure' => [
         'name' => 'name',
         'type' => 'type',
-        'require' => 'require'
     ],
 
 

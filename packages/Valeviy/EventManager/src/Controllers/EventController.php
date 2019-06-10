@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Carbon\Laravel\ServiceProvider;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
 use Valeviy\EventManager\Models\Event;
 use Valeviy\EventManager\Models\EventFile;
 use Valeviy\EventManager\Models\Organizer;
@@ -14,7 +15,6 @@ use Valeviy\EventManager\Requests\CreateEventRequest;
 
 class EventController extends Controller
 {
-
 
     public function index(){
         $events = Event::all();
@@ -55,8 +55,8 @@ class EventController extends Controller
             config('eventmanager.upload.directory.package_dir').'/'.config('eventmanager.upload.directory.logo'),'logo_event_'. $event->id . "." .$request->file('logo')->getClientOriginalExtension()  , config('eventmanager.upload.disk')
         );
 
-       // $event['user_id'] = config('eventmanager.table-models.users_model')->id;
-        $event['user_id'] = 1;
+//        $event['user_id'] = config('eventmanager.table-models.users_model')->id;
+        $event['user_id'] = Auth::id();
         $event['logo'] = $logo_path;
         $event['custom_fields'] = json_decode($request['custom_fields'], false);
         $event->save();
@@ -78,6 +78,19 @@ class EventController extends Controller
 
 
         return response()->json(['redirect'=>'/events/'.$event->id]);
+    }
+
+    public function moderate(){
+        $events = Event::all();
+        $table_titles = ['№',trans('eventmanager.title'), trans('eventmanager.status'), trans('eventmanager.accept'),trans('eventmanager.reject')];
+        return view('events::moderate.requests',compact('events','table_titles'));
+    }
+
+    public function statusUpdate(Request $request){
+        $event = Event::find($request['event_id']);
+        $event['status'] = 1;
+        $event->save();
+        return $request->all();
     }
 
 }
