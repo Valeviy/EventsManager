@@ -27,7 +27,13 @@
            <p style="font-size: 1.3rem">{!! $event->short_description !!}</p>
         </div>
         <div class="col-md-2">
-            <a style="font-size: 1.3rem; color:whitesmoke" class="btn btn-primary"> Участвовать </a>
+            <registration-form modal_title="Участвовать"
+                               regbutton_title="Зарегистрироваться"
+                               closebutton_title="Закрыть"
+                               :event_fields='{!! json_encode($event->custom_fields) !!}'
+                               user_id='{!! Auth::user()->id!!}'
+                               event_id='{!! $event->id !!}'
+                                ></registration-form>
         </div>
     </div>
     </div>

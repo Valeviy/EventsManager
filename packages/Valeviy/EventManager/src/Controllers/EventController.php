@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Valeviy\EventManager\Models\Event;
 use Valeviy\EventManager\Models\EventFile;
+use Valeviy\EventManager\Models\EventRequest;
 use Valeviy\EventManager\Models\Organizer;
 use Valeviy\EventManager\Requests\CreateEventRequest;
 
@@ -19,7 +20,6 @@ class EventController extends Controller
     public function index(){
         $events = Event::all();
         return view('events::AllEvents.all-events',compact('events'));
-        //отображение всех мероприятий с лого, название, дата начала, город
     }
 
     public function show($id){
@@ -27,7 +27,6 @@ class EventController extends Controller
         $event_files = EventFile::where('event_id' , $event->id)->get();
         $event_organizers = Organizer::where('event_id',$event->id )->get();
         return view('events::Event.event',compact('event','event_files','event_organizers'));
-        //отображение одного мероприятия
     }
 
     public function edit(){
@@ -38,11 +37,8 @@ class EventController extends Controller
         return view('events::form.form',compact('eventTypes','oranizerTypes','customAvailable','customTypes'));
     }
 
-    public function update($id){
-        //редактирование мероприяти
-    }
 
-    public function create(Request $request){
+    public function create(CreateEventRequest $request){
 
         $organizers = json_decode($request['organizers'], true);
 
@@ -52,26 +48,26 @@ class EventController extends Controller
 
 
         $logo_path = $request->file('logo')->storeAs(
-            config('eventmanager.upload.directory.package_dir').'/'.config('eventmanager.upload.directory.logo'),'logo_event_'. $event->id . "." .$request->file('logo')->getClientOriginalExtension()  , config('eventmanager.upload.disk')
+            config('eventmanager.upload.directory.package_dir').'/'.config('eventmanager.upload.directory.logo'),
+            'logo_event_'. $event->id . "." .$request->file('logo')->getClientOriginalExtension()  ,
+            config('eventmanager.upload.disk')
         );
 
-//        $event['user_id'] = config('eventmanager.table-models.users_model')->id;
         $event['user_id'] = Auth::id();
         $event['logo'] = $logo_path;
         $event['custom_fields'] = json_decode($request['custom_fields'], false);
         $event->save();
 
-
         foreach ($organizers as $organizer){
             Organizer::create(['name' => $organizer['name'], 'type' => $organizer['type'], 'event_id' => $event->id]);
         }
-
 
         $files = $request['files'];
 
         foreach ($files as $file){
             $file_path =  $file->storeAs(
-                config('eventmanager.upload.directory.package_dir').'/'.config('eventmanager.upload.directory.file'),$file->getClientOriginalName()  , config('eventmanager.upload.disk')
+                config('eventmanager.upload.directory.package_dir').'/'.config('eventmanager.upload.directory.file'),
+                $file->getClientOriginalName(), config('eventmanager.upload.disk')
             );
             EventFile::create(['event_id'=> $event->id, 'filename' => $file_path]);
         }
@@ -79,6 +75,7 @@ class EventController extends Controller
 
         return response()->json(['redirect'=>'/events/'.$event->id]);
     }
+
 
     public function moderate(){
         $events = Event::all();

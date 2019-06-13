@@ -5,6 +5,7 @@ Route::group(['namespace'=> 'Valeviy\EventManager\Controllers', 'middleware' => 
     Route::post('/event', 'EventController@create');
     Route::get('/events', 'EventController@index');
     Route::get('/events/{event_id}','EventController@show')->name('event');
+    Route::post('/events/{event_id}','EventParticipantController@create');
     Route::get('/moderate', 'EventController@moderate');
     Route::post('/moderate', 'EventController@statusUpdate');
 

@@ -21,50 +21,6 @@ class Event extends Model
         'custom_fields' => 'array'
     ];
 
-    /**
-    * Get logo attribute.
-    *
-    * @param string $logo
-    *
-    * @return string
-    */
-
-    public function getLogoAttribute($logo)
-    {
-        $disk = config('eventmanager.upload.disk');
-
-        if ($logo && array_key_exists($disk, config('filesystems.disks'))) {
-            return Storage::disk(config('eventmanager.upload.disk'))->url($logo);
-        }
-
-        return null;
-    }
-
-    /**
-     * Get custom fields.
-     *
-     *
-     *
-     * @return array
-     */
-
-    public static function getCustomFields(Event $event)
-    {
-        $fieldsAvailable = config('eventmanager.customfields-available');
-        $customFields = $event['custom_fields'];
-
-        if ($fieldsAvailable and $customFields){
-            return $customFields;
-        }
-
-        return null;
-    }
-
-
-    /**
-    * A event has to many files.
-    *
-    */
 
     public function files()
     {
@@ -73,10 +29,6 @@ class Event extends Model
         return $this->hasMany(config($relatedModel), 'event_id','id');
     }
 
-    /**
-     * A event has to many participants.
-     *
-     */
 
     public function participants()
     {
@@ -85,11 +37,6 @@ class Event extends Model
         return $this->hasMany(config($relatedModel), 'event_id','id');
     }
 
-    /**
-     * A event has to many organizers.
-     *
-     */
-
     public function organizers()
     {
         $relatedModel = config('eventmanager.table-models.organizers_model');
@@ -97,10 +44,6 @@ class Event extends Model
         return $this->hasMany(config($relatedModel), 'event_id','id');
     }
 
-    /**
-     * A event has one request.
-     *
-     */
 
     public function request()
     {
@@ -108,8 +51,5 @@ class Event extends Model
 
         return $this->hasOne(config($relatedModel), 'event_id','id');
     }
-
-
-
 
 }

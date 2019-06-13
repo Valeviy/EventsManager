@@ -5,9 +5,6 @@ return [
     |--------------------------------------------------------------------------
     | EventManager event types settings
     |--------------------------------------------------------------------------
-    |
-    |
-    |
     */
 
     'event-types' => [
@@ -23,21 +20,14 @@ return [
     |--------------------------------------------------------------------------
     | EventManager organizer types settings
     |--------------------------------------------------------------------------
-    |
-    |
-    |
     */
 
     'organizer-types' => ['Organizer', 'Leading', 'Speaker', 'Master', 'Expert'],
-
 
     /*
     |--------------------------------------------------------------------------
     | EventManager database settings
     |--------------------------------------------------------------------------
-    |
-    | Here are database settings for EventManager builtin model & tables.
-    |
     */
     'table-models' => [
         // Database connection for following tables.
@@ -89,9 +79,6 @@ return [
     |--------------------------------------------------------------------------
     | EventManager custom fields settings
     |--------------------------------------------------------------------------
-    |
-    |
-    |
     */
 
     'customfields-available' => true,
@@ -100,9 +87,6 @@ return [
     |--------------------------------------------------------------------------
     | Custom field types settings
     |--------------------------------------------------------------------------
-    |
-    |
-    |
     */
 
     'field-types' => ['text', 'number', 'file', 'checkbox'],
@@ -111,9 +95,6 @@ return [
     |--------------------------------------------------------------------------
     | Custom field structure settings
     |--------------------------------------------------------------------------
-    | json structure
-    |
-    |
     */
 
     'field-structure' => [
@@ -127,14 +108,9 @@ return [
     |--------------------------------------------------------------------------
     | EventManager upload setting
     |--------------------------------------------------------------------------
-    |
-    | File system configuration for form upload files and images, including
-    | disk and upload path.
-    |
     */
     'upload' => [
 
-        // Disk in `config/filesystem.php`.
         'disk' => 'public',
 
         'directory' => [
@@ -148,9 +124,6 @@ return [
     |--------------------------------------------------------------------------
     | EventManager html title
     |--------------------------------------------------------------------------
-    |
-    | Html title for all pages.
-    |
     */
     'title' => 'EventManager',
 
@@ -158,35 +131,8 @@ return [
     |--------------------------------------------------------------------------
     | EventManager html title
     |--------------------------------------------------------------------------
-    |
-    | Html title for all pages.
-    |
     */
     'strong-title' => 'EvM',
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | EventManager route settings
-    |--------------------------------------------------------------------------
-    |
-    |
-    |
-    */
-    'route' => [
-
-        'prefix' => 'eventmanager',
-
-        'namespace' => 'App\\Http\\Controllers',
-
-        'middleware' => ['events', 'admin'],
-    ],
-
-    'auth' => [
-
-        'login_controller' => Valeviy\EventManager\Controllers\EventLoginController::class,
-        'register_controller' => Valeviy\EventManager\Controllers\RegisterController::class,
-
-    ],
-
+    'directory' => 'EventManager',
 ];

@@ -12,12 +12,12 @@
                 </div>
             </div>
         </div>
-<event-form  step_name='{{trans('eventmanager.step')}}'
-             :event_types = '{!! json_encode($eventTypes) !!}'
-             :organizer_types = '{!! json_encode($oranizerTypes) !!}'
-             :field_types = '{!! json_encode($customTypes)!!}'
-             submit_title = '{{trans('eventmanager.submit')}}'
-             v-bind:step1="{ name: '{{trans('eventmanager.main_information')}}',
+        <event-form step_name='{{trans('eventmanager.step')}}'
+                    :event_types='{!! json_encode($eventTypes) !!}'
+                    :organizer_types='{!! json_encode($oranizerTypes) !!}'
+                    :field_types='{!! json_encode($customTypes)!!}'
+                    submit_title='{{trans('eventmanager.submit')}}'
+                    v-bind:step1="{ name: '{{trans('eventmanager.main_information')}}',
                              title: '{{trans('eventmanager.title')}}',
                              title_placeholder: '{!! trans('eventmanager.add_event_title')!!}',
                              type: '{{trans('eventmanager.type_event')}}',
@@ -28,14 +28,14 @@
                              logo_placeholder:'{!! trans('eventmanager.upload_logo')!!}',
                             }"
 
-             v-bind:step2="{ name: '{{trans('eventmanager.description_and_program')}}',
+                    v-bind:step2="{ name: '{{trans('eventmanager.description_and_program')}}',
                              short_description: '{{trans('eventmanager.short_description')}}',
                              short_description_placehoder:'{!! trans('eventmanager.add_short_description') !!}',
                              full_description:'{!! trans('eventmanager.full_description') !!}',
                              program:'{!! trans('eventmanager.program') !!}',
                             }"
 
-             v-bind:step3="{ name: '{{trans('eventmanager.date_time')}}',
+                    v-bind:step3="{ name: '{{trans('eventmanager.date_time')}}',
                              oneday: '{!! trans('eventmanager.oneday_event') !!}',
                              beginning: '{!! trans('eventmanager.beginning_date') !!}',
                              beginning_placeholder: '{!! trans('eventmanager.select_beg_day') !!}',
@@ -45,7 +45,7 @@
                              reg_day_placeholder:'{!! trans('eventmanager.select_end_day') !!}',
                             }"
 
-             v-bind:step4="{ name: '{{trans('eventmanager.contact_information')}}',
+                    v-bind:step4="{ name: '{{trans('eventmanager.contact_information')}}',
                              city: '{{trans('eventmanager.city')}}',
                              city_placeholder:'{!! trans('eventmanager.add_city') !!}',
                              address:'{{trans('eventmanager.address')}}',
@@ -58,26 +58,26 @@
                              email_placeholder: '{!! trans('eventmanager.add_email') !!}',
                             }"
 
-             v-bind:step5="{ name: '{{trans('eventmanager.organizers')}}',
+                    v-bind:step5="{ name: '{{trans('eventmanager.organizers')}}',
                              input_title: '{!! trans('eventmanager.name') !!}',
                              select_placeholder: '{!! trans('eventmanager.choose_one') !!}',
                              select_title: '{!! trans('eventmanager.organizers_type') !!}',
                              input_placeholder:  '{!! trans('eventmanager.add_name') !!}',
                             }"
 
-             v-bind:step6="{ name: '{{trans('eventmanager.files_and_material')}}',
+                    v-bind:step6="{ name: '{{trans('eventmanager.files_and_material')}}',
                              button: '{{trans('eventmanager.add_files')}}'
                             }"
 
-             v-bind:step7="{ name: '{{trans('eventmanager.participant_reg_form')}}',
+                    v-bind:step7="{ name: '{{trans('eventmanager.participant_reg_form')}}',
                              checkbox_title: '{!! trans('eventmanager.custom_registration_form') !!}',
                              input_title: '{!! trans('eventmanager.title_field') !!}',
                              select_placeholder: '{!! trans('eventmanager.select_type_field') !!}',
                              select_title: '{!! trans('eventmanager.type_field') !!}',
                              input_placeholder:  '{!! trans('eventmanager.add_title_field') !!}',
                             }"
->
-</event-form>
+        >
+        </event-form>
 
     </div>
 

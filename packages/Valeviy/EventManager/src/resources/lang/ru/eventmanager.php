@@ -3,7 +3,7 @@ return [
     'create_event'                => 'Создать мероприятие',
     'create_new_event'            => 'Создать новое мероприятие',
     'title'                       => 'Название',
-    'type_event'                        => 'Тип мероприятия',
+    'type_event'                  => 'Тип мероприятия',
     'number_of_participants'      => 'Количество участников',
     'logo'                        => 'Логотип',
     'step'                        => 'Шаг',
@@ -53,6 +53,7 @@ return [
     'add_number_of_participants' => 'Введите количество участников',
     'all_events' => 'Все мероприятия',
     'participate' => 'Участвовать',
+
 
 
 

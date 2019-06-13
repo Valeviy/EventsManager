@@ -4,6 +4,7 @@ namespace Valeviy\EventManager\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Valeviy\EventManager\Models\EventParticipant;
 
 class EventParticipantController extends Controller
 {
@@ -20,6 +21,9 @@ class EventParticipantController extends Controller
     }
 
     public function create(Request $request){
-        //создание заявки
+        $participant = EventParticipant::create(request(['user_id','event_id']));
+        $participant['filled_fields'] = json_decode($request['filled_fields'], false);
+        $participant->save();
+
     }
 }

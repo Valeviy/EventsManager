@@ -6,6 +6,10 @@ use Illuminate\Support\ServiceProvider;
 
 class EventManagerServiceProvider extends ServiceProvider{
 
+    protected $commands = [
+        Commands\InstallCommand::class,
+
+    ];
 
     protected $routeMiddleware = [
         'eventmanager.role' => Middleware\RoleMiddleware::class,
@@ -45,7 +49,8 @@ class EventManagerServiceProvider extends ServiceProvider{
         });
 
         app('router')->aliasMiddleware('role', Middleware\RoleMiddleware::class);
-//        $this->registerRouteMiddleware();
+
+        $this->commands($this->commands);
 
     }
 

@@ -12,6 +12,7 @@ class PermissionsServiceProvider extends ServiceProvider
      *
      * @return void
      */
+
     public function boot()
     {
         $relatedModel = config('eventmanager.table-models.permissions_model');
@@ -28,6 +29,7 @@ class PermissionsServiceProvider extends ServiceProvider
             return "<?php endif; ?>";
         });
     }
+
     /**
      * Register the application services.
      *
